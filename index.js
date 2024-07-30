@@ -17,6 +17,12 @@ app.get('/', async (req, res) => {
     const animal = req.query.animal || 'dog';
     const prompt = `Give me 10 fun facts about ${animal}. Return this as html without backticks.`
     const resp = await generativeModel.generateContent(prompt);
+    console.log(JSON.stringify({
+        severity: 'DEBUG',
+        message: 'Content is generated',
+        prompt: prompt,
+        response: resp.response,
+    }));
     const html = resp.response.candidates[0].content.parts[0].text;
     res.send(html);
 });
